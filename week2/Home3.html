@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Image with Sliding Text</title>
+<style>
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+#container {
+  width: 800px;
+  height: 400px;
+  position: relative;
+  margin: 20px auto;
+  overflow: hidden;
+}
+
+#image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+#sliding-text {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  font-size: 2em;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.25);
+  padding: 10px;
+  animation: slide 10s linear infinite;
+}
+
+@keyframes slide {
+  0% { left: 100%; }
+  100% { left: -100%; }
+}
+</style>
+</head>
+<body>
+
+<div id="container">
+  <img id="image" src="demo.jpg" alt="Demo Image">
+  <div id="sliding-text">Autumn is the best season</div>
+</div>
+
+</body>
+</html>

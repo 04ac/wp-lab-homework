@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bouncing Ball</title>
+<style>
+#container {
+  width: 500px;
+  height: 300px;
+  border: 1px solid black;
+  background-color: rgb(23, 92, 92);
+  position: relative; 
+  overflow: hidden;
+}
+
+#ball {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border-width: 6px;
+  border-color: black;
+  background-color: yellow;
+  position: absolute; 
+  left: 20px;
+  top: 20px;
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> </head>
+<body>
+
+<div id="container">
+  <div id="ball"></div>
+</div>
+
+<script>
+$(document).ready(function() {
+  function animateBall() {
+    let ball = $("#ball");
+    let containerHeight = $("#container").height();
+    let ballHeight = ball.height();
+    let containerWidth = $("#container").width();
+    let ballWidth = ball.width();
+    let currentTop = ball.position().top;
+    let currentLeft = ball.position().left;
+    let directionY = 1; 
+    let directionX = 1;
+    let speed = 10;
+
+    function bounce() {
+      currentTop += speed * directionY;
+      currentLeft += speed * directionX;
+
+      if (currentTop + ballHeight > containerHeight || currentTop < 0) {
+        directionY *= -1; 
+      }
+        if (currentLeft + ballWidth > containerWidth || currentLeft < 0) {
+        directionX *= -1; 
+      }
+
+      ball.css({ top: currentTop + "px", left: currentLeft + "px" });
+      requestAnimationFrame(bounce);
+    }
+
+    bounce();
+  }
+
+  animateBall(); 
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Product Bill Generator</title>
+<style>
+body {
+    font-family: sans-serif;
+}
+#container {
+    width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+input[type="text"], select {
+    width: calc(100% - 12px);
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+#bill-area{
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+</style>
+</head>
+<body>
+
+<div id="container">
+    <h2>Product Selection</h2>
+
+    <label for="brand">Select Brand:</label>
+    <select id="brand">
+        <option value="">--Select Brand--</option>
+        <option value="HP">HP</option>
+        <option value="Nokia">Nokia</option>
+        <option value="Samsung">Samsung</option>
+        <option value="Motorola">Motorola</option>
+        <option value="Apple">Apple</option>
+    </select>
+
+    <label>Select Product Type(s):</label>
+    <input type="checkbox" id="mobile" name="product" value="Mobile">
+    <label for="mobile">Mobile</label><br>
+    <input type="checkbox" id="laptop" name="product" value="Laptop">
+    <label for="laptop">Laptop</label><br>
+
+    <label for="quantity">Enter Quantity:</label>
+    <input type="text" id="quantity" value="1">
+
+    <button onclick="produceBill()">Produce Bill</button>
+    <div id="bill-area">
+
+    </div>
+</div>
+
+<script>
+
+const prices = {
+    HP: { Mobile: 10000, Laptop: 50000 },
+    Nokia: { Mobile: 8000, Laptop: 40000 },
+    Samsung: { Mobile: 12000, Laptop: 60000 },
+    Motorola: { Mobile: 9000, Laptop: 45000 },
+    Apple: { Mobile: 15000, Laptop: 70000 }
+};
+
+function produceBill() {
+    const brand = document.getElementById("brand").value;
+    const products = document.querySelectorAll('input[name="product"]:checked');
+    const quantity = parseInt(document.getElementById("quantity").value);
+
+    if (brand === "" || products.length === 0 || isNaN(quantity) || quantity <= 0) {
+        alert("Please fill all fields with correct data");
+        return;
+    }
+
+    let totalAmount = 0;
+    let productDetails = "";
+
+    products.forEach(product => {
+        const unitPrice = prices[brand][product.value];
+        productDetails += `${product.value} (₹${unitPrice}/unit)<br>`;
+        totalAmount += unitPrice * quantity;
+    });
+
+    let billText = "Brand: " + brand + "<br>";
+    billText += "Products: " + productDetails + "<br>";
+    billText += "Quantity: " + quantity + "<br>";
+    billText += "Total Amount: ₹" + totalAmount + "<br>";
+
+    document.getElementById("bill-area").innerHTML = billText;
+    alert("Total Bill Amount: ₹" + totalAmount);
+}
+</script>
+
+</body>
+</html>
