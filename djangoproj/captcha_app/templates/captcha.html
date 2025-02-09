@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Captcha Verification</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-5">
+    <h3>Enter the Captcha</h3>
+    <div class="card p-3">
+        <p id="captcha" class="fw-bold text-primary">{{ captcha }}</p>
+        <input type="text" id="captcha_input" class="form-control" placeholder="Enter Captcha">
+        <button id="submit_btn" class="btn btn-primary mt-2">Submit</button>
+        <p id="message" class="mt-2"></p>
+    </div>
+    <script>
+        let attempts = 0;
+        $("#submit_btn").click(function () {
+            let inputVal = $("#captcha_input").val();
+            $.get("/validate/", { captcha_input: inputVal }, function (data) {
+                $("#message").text(data.message).removeClass().addClass(data.status === 'success' ? 'text-success' : 'text-danger');
+                if (data.disable) {
+                    $("#captcha_input, #submit_btn").prop("disabled", true);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
