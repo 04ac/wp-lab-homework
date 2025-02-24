@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grocery Checklist</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        .form-group {
+            margin: 20px 0;
+        }
+        
+        .checkbox-list {
+            margin-bottom: 15px;
+        }
+        
+        .checkbox-item {
+            margin: 5px 0;
+        }
+        
+        .button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h2>Select Item:</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="checkbox-list">
+                {% for field in form %}
+                    <div class="checkbox-item">
+                        {{ field }}
+                        {{ field.label_tag }}
+                    </div>
+                {% endfor %}
+            </div>
+            <input type="submit" value="Add Item" class="button">
+        </div>
+    </form>
+
+    {% if selected_items %}
+    <table>
+        <thead>
+            <tr>
+                <th>Item Name</th>
+                <th>Item Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in selected_items %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.price }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</body>
+</html>
