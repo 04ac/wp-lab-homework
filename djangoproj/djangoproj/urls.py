@@ -16,11 +16,12 @@ Including another URLconf
 """
 # urls.py
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 from captcha_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('captcha/', views.captcha_view, name='captcha'),
     path('validate/', views.validate_captcha, name='validate_captcha'),
+    path('institutes/', include('institutes.urls')),
 ]

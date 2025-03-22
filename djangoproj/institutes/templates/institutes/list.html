@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Institutes</title>
+</head>
+<body>
+    <h1>Institute List</h1>
+    <label for="institutes">Select Institute:</label>
+    <select id="institutes" name="institutes">
+        {% for institute in institutes %}
+            <option value="{{ institute.institute_id }}">{{ institute.name }}</option>
+        {% endfor %}
+    </select>
+</body>
+</html>
